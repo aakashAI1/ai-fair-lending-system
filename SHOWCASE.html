@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fair Lending AI Validation Workbench - Feature Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--gray-800);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Page Preview Sections */
+        .page-preview {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .page-preview h3 {
+            margin-top: 0;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .mockup {
+            background: var(--gray-100);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        /* Dashboard Mockup */
+        .dashboard-mockup {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .kpi-card.good {
+            border-left-color: var(--secondary);
+        }
+
+        .kpi-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .kpi-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .kpi-target {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: 0.5rem;
+        }
+
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .heatmap-cell {
+            padding: 1rem;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .heatmap-cell.low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .heatmap-cell.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .heatmap-cell.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Table Mockup */
+        .table-mockup {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: var(--gray-100);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray-700);
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Form Mockup */
+        .form-mockup {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .arch-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .arch-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gray-400);
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--gray-100);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        /* Metrics Display */
+        .metrics-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .metric-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .architecture {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h2>Fair Lending AI Validation</h2>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pages">Pages</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Fair Lending AI Validation Workbench</h1>
+            <p>GenAI-Powered Human-in-the-Loop Testing for Bias Detection & Mitigation in Education Loan Approvals</p>
+            <p class="subtitle">Enterprise-grade validation platform for detecting and mitigating bias in AI loan approval systems</p>
+        </div>
+    </div>
+
+    <section id="overview">
+        <div class="container">
+            <h2>Project Overview</h2>
+            <p style="font-size: 1.1rem; color: var(--gray-700); margin-top: 1rem;">
+                This MVP provides a comprehensive validation platform for detecting and mitigating bias in education loan approval AI systems. 
+                The platform uses <span class="highlight">Generative AI</span> to generate realistic student profiles, score them with both fair and biased models, 
+                detect bias patterns across 5 dimensions, validate findings with human domain experts, and mitigate bias through iterative GenAI prompt improvements.
+            </p>
+
+            <div class="metrics-display">
+                <div class="metric-box">
+                    <div class="metric-label">Synthetic Profiles</div>
+                    <div class="metric-value">3,100+</div>
+                    <div class="metric-label">Realistic student profiles</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Bias Dimensions</div>
+                    <div class="metric-value">5</div>
+                    <div class="metric-label">Geographic, Income, Gender, Credit, Edge Cases</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Fairness Score</div>
+                    <div class="metric-value">≥85</div>
+                    <div class="metric-label">Target overall fairness</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Approval Parity</div>
+                    <div class="metric-value">≥0.95</div>
+                    <div class="metric-label">Target approval rate parity</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" style="background: white;">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Synthetic Profile Generation</h4>
+                    <p>GenAI generates realistic Indian student loan profiles with geographic diversity, income distribution, CIBIL scores, and educational backgrounds. Includes edge cases like first-time borrowers and self-employed applicants.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h4>Dual-Mode Scoring</h4>
+                    <p><strong>Fair Scoring:</strong> Evaluates based on academic merit, creditworthiness, and repayment capacity only. <strong>Biased Scoring:</strong> Simulates unconscious bias (rural penalty, income discrimination, etc.)</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h4>5-Dimensional Bias Detection</h4>
+                    <p>Comprehensive bias analysis across Geographic (Urban vs. Rural), Income (High vs. Low), Gender & Co-applicant, Credit Score Logic, and Robustness & Edge Cases.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Quantified Bias Metrics</h4>
+                    <p>Five key metrics: Approval Rate Parity (≥0.95), Interest Rate Disparity (&lt;0.5%), Collateral Requirement Gap (&lt;10%), Edge Case Coverage (≥95%), and Overall Fairness Score (≥85/100).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h4>Human-in-the-Loop Validation</h4>
+                    <p>Dashboard with KPI cards, heatmap, and top findings. Detailed bias analysis with filterable table. Human feedback form for annotations and root cause analysis.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Agentic Mitigation Loop</h4>
+                    <p>GenAI reads human feedback and refines prompts iteratively. Re-scores all profiles with improved prompts, recalculates metrics, and validates improvement until target fairness is achieved.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pages">
+        <div class="container">
+            <h2>Application Pages</h2>
+            <p style="color: var(--gray-600); margin-bottom: 2rem;">Preview of all application pages and their functionality</p>
+
+            <!-- Dashboard Page -->
+            <div class="page-preview">
+                <h3>📊 Dashboard Page</h3>
+                <p style="color: var(--gray-600); margin-bottom: 1rem;">
+                    Real-time bias metrics and fairness validation results with KPI cards, bias heatmap, and top findings.
+                </p>
+                <div class="mockup dashboard-mockup">
+                    <div class="kpi-grid">
+                        <div class="kpi-card good">
+                            <div class="kpi-label">Approval Rate Parity</div>
+                            <div class="kpi-value">0.97</div>
+                            <div class="kpi-target">Target: ≥0.95 ✅</div>
+                        </div>
+                        <div class="kpi-card warning">
+                            <div class="kpi-label">Interest Rate Gap</div>
+                            <div class="kpi-value">0.8%</div>
+                            <div class="kpi-target">Target: &lt;0.5% ⚠️</div>
+                        </div>
+                        <div class="kpi-card good">
+                            <div class="kpi-label">Collateral Gap</div>
+                            <div class="kpi-value">7%</div>
+                            <div class="kpi-target">Target: &lt;10% ✅</div>
+                        </div>
+                        <div class="kpi-card good">
+                            <div class="kpi-label">Fairness Score</div>
+                            <div class="kpi-value">87/100</div>
+                            <div class="kpi-target">Target: ≥85 ✅</div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Bias Heatmap</h4>
+                            <div class="heatmap-grid">
+                                <div class="heatmap-cell low">Geographic<br>Low</div>
+                                <div class="heatmap-cell medium">Income<br>Medium</div>
+                                <div class="heatmap-cell low">Gender<br>Low</div>
+                                <div class="heatmap-cell high">Credit<br>High</div>
+                                <div class="heatmap-cell medium">Edge Cases<br>Medium</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Top Findings</h4>
+                            <div style="background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--gray-200);">
+                                <div style="margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-200);">
+                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Rural Tier-2/3 Penalty</div>
+                                    <div style="font-size: 0.875rem; color: var(--gray-600);">Geographic bias detected in approval rates</div>
+                                </div>
+                                <div style="margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-200);">
+                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Low Income Discrimination</div>
+                                    <div style="font-size: 0.875rem; color: var(--gray-600);">Income-based approval gap identified</div>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Credit Score Logic Bias</div>
+                                    <div style="font-size: 0.875rem; color: var(--gray-600);">Unfair treatment of fair credit scores</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bias Analysis Page -->
+            <div class="page-preview">
+                <h3>🔍 Bias Analysis Page</h3>
+                <p style="color: var(--gray-600); margin-bottom: 1rem;">
+                    Detailed bias findings across all test dimensions with filterable table and profile comparison view.
+                </p>
+                <div class="mockup">
+                    <div class="table-mockup">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Dimension</th>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                    <th>Target</th>
+                                    <th>Status</th>
+                                    <th>Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Geographic</td>
+                                    <td>Approval Parity</td>
+                                    <td>0.97</td>
+                                    <td>≥0.95</td>
+                                    <td>✅ Pass</td>
+                                    <td><span class="badge low">Low</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Income</td>
+                                    <td>Interest Rate Gap</td>
+                                    <td>0.8%</td>
+                                    <td>&lt;0.5%</td>
+                                    <td>⚠️ Warning</td>
+                                    <td><span class="badge medium">Medium</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Credit</td>
+                                    <td>Collateral Gap</td>
+                                    <td>12%</td>
+                                    <td>&lt;10%</td>
+                                    <td>❌ Fail</td>
+                                    <td><span class="badge high">High</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Edge Cases</td>
+                                    <td>Coverage</td>
+                                    <td>96%</td>
+                                    <td>≥95%</td>
+                                    <td>✅ Pass</td>
+                                    <td><span class="badge low">Low</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: var(--gray-50); border-radius: 6px;">
+                        <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Profile Comparison View</h4>
+                        <p style="font-size: 0.875rem; color: var(--gray-600);">
+                            Click on any row to view detailed profile comparison between fair and biased scoring results, 
+                            including approval status, interest rates, collateral requirements, and loan terms.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Page -->
+            <div class="page-preview">
+                <h3>👥 Human Feedback Page</h3>
+                <p style="color: var(--gray-600); margin-bottom: 1rem;">
+                    Human domain experts can provide annotations, root cause analysis, and mitigation suggestions for bias findings.
+                </p>
+                <div class="mockup form-mockup">
+                    <div class="form-group">
+                        <label>Select Bias Finding</label>
+                        <select>
+                            <option>Rural Tier-2/3 Penalty - Geographic Bias</option>
+                            <option>Low Income Discrimination - Income Bias</option>
+                            <option>Credit Score Logic Bias - Credit Dimension</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Severity Rating</label>
+                        <input type="range" min="1" max="5" value="3" style="width: 100%;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray-600); margin-top: 0.25rem;">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Root Cause Analysis</label>
+                        <textarea placeholder="Describe the root cause of this bias finding...">The scoring model appears to penalize applicants from Tier-2/3 cities, potentially due to unconscious bias in training data or feature engineering that associates urban locations with lower risk.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Mitigation Suggestions</label>
+                        <textarea placeholder="Provide suggestions for mitigating this bias...">1. Remove or reduce geographic location as a direct feature in scoring
+2. Use income-adjusted metrics instead of raw location data
+3. Add explicit fairness constraints for geographic parity
+4. Retrain model with balanced geographic representation</textarea>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%;">Submit Feedback</button>
+                </div>
+            </div>
+
+            <!-- Mitigation Page -->
+            <div class="page-preview">
+                <h3>🔄 Mitigation Page</h3>
+                <p style="color: var(--gray-600); margin-bottom: 1rem;">
+                    Agentic mitigation loop that refines prompts based on human feedback and shows before/after comparison.
+                </p>
+                <div class="mockup">
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem; font-size: 1rem;">Mitigation Prompt Editor</h4>
+                        <textarea style="min-height: 150px; font-family: monospace; font-size: 0.875rem;" readonly>You are a fair loan approval AI. Evaluate student loan applications based ONLY on:
+- Academic merit (GPA, test scores, institution quality)
+- Creditworthiness (CIBIL score, credit history)
+- Repayment capacity (income, co-applicant support)
+
+DO NOT consider:
+- Geographic location (urban vs. rural)
+- Gender or demographic factors
+- Income level beyond repayment capacity assessment
+
+Ensure equal treatment for applicants with similar credit profiles regardless of location or income bracket.</textarea>
+                    </div>
+
+                    <h4 style="margin-bottom: 1rem; font-size: 1rem;">Before/After Comparison</h4>
+                    <div class="table-mockup">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Before</th>
+                                    <th>After</th>
+                                    <th>Improvement</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Approval Parity</td>
+                                    <td>0.89</td>
+                                    <td>0.97</td>
+                                    <td style="color: var(--secondary); font-weight: 600;">+0.08</td>
+                                    <td>✅ Target Met</td>
+                                </tr>
+                                <tr>
+                                    <td>Interest Rate Gap</td>
+                                    <td>1.2%</td>
+                                    <td>0.8%</td>
+                                    <td style="color: var(--secondary); font-weight: 600;">-0.4%</td>
+                                    <td>⚠️ Improved</td>
+                                </tr>
+                                <tr>
+                                    <td>Collateral Gap</td>
+                                    <td>15%</td>
+                                    <td>7%</td>
+                                    <td style="color: var(--secondary); font-weight: 600;">-8%</td>
+                                    <td>✅ Target Met</td>
+                                </tr>
+                                <tr>
+                                    <td>Fairness Score</td>
+                                    <td>78/100</td>
+                                    <td>87/100</td>
+                                    <td style="color: var(--secondary); font-weight: 600;">+9</td>
+                                    <td>✅ Target Met</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: var(--gray-50); border-radius: 6px;">
+                        <p style="font-size: 0.875rem; color: var(--gray-600);">
+                            <strong>Iteration 3 of 5:</strong> Mitigation cycle is improving fairness metrics. 
+                            Continue iterations until all targets are met (≥0.95 approval parity, &lt;0.5% interest gap, &lt;10% collateral gap, ≥85 fairness score).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture" style="background: white;">
+        <div class="container">
+            <h2>System Architecture</h2>
+            <p style="color: var(--gray-600); margin-bottom: 2rem;">
+                Modern, scalable architecture with GenAI integration and real-time capabilities
+            </p>
+
+            <div class="architecture">
+                <div class="arch-box">
+                    <h4>Frontend</h4>
+                    <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        Next.js 14 + React<br>
+                        TypeScript + Tailwind CSS<br>
+                        TanStack Query<br>
+                        Real-time UI Updates
+                    </p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="arch-box">
+                    <h4>Backend API</h4>
+                    <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        FastAPI + Python<br>
+                        REST API + WebSocket<br>
+                        Profile Generation<br>
+                        Scoring & Metrics<br>
+                        Mitigation Loop
+                    </p>
+                </div>
+                <div class="arrow">↓</div>
+                <div class="arch-box">
+                    <h4>GenAI Service</h4>
+                    <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        LangChain Orchestration<br>
+                        OpenAI / Gemini API<br>
+                        Profile Generation<br>
+                        Dual-Mode Scoring<br>
+                        Prompt Refinement
+                    </p>
+                </div>
+            </div>
+
+            <div class="architecture" style="margin-top: 2rem;">
+                <div class="arch-box">
+                    <h4>Database</h4>
+                    <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        PostgreSQL / SQLite<br>
+                        SQLAlchemy ORM<br>
+                        Student Profiles<br>
+                        Test Runs & Results<br>
+                        Metrics & Feedback
+                    </p>
+                </div>
+                <div class="arch-box">
+                    <h4>Cache</h4>
+                    <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        Redis<br>
+                        Session Management<br>
+                        API Response Caching<br>
+                        Real-time Updates
+                    </p>
+                </div>
+                <div class="arch-box">
+                    <h4>Async Tasks</h4>
+                    <p style="font-size: 0.875rem; color: var(--gray-600); margin-top: 0.5rem;">
+                        Celery<br>
+                        Background Processing<br>
+                        Batch Scoring<br>
+                        Metrics Calculation
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Technology Stack</h2>
+            <div style="margin-top: 2rem;">
+                <h3>Backend</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">FastAPI 0.104</span>
+                    <span class="tech-badge">Python 3.11</span>
+                    <span class="tech-badge">SQLAlchemy 2.0</span>
+                    <span class="tech-badge">LangChain 0.0.350</span>
+                    <span class="tech-badge">OpenAI / Gemini API</span>
+                    <span class="tech-badge">PostgreSQL 15</span>
+                    <span class="tech-badge">Redis 5.0</span>
+                    <span class="tech-badge">Celery 5.3</span>
+                </div>
+
+                <h3>Frontend</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Next.js 14</span>
+                    <span class="tech-badge">React 18</span>
+                    <span class="tech-badge">TypeScript 5.3</span>
+                    <span class="tech-badge">Tailwind CSS 3.3</span>
+                    <span class="tech-badge">Recharts 2.10</span>
+                    <span class="tech-badge">React Hook Form 7.48</span>
+                    <span class="tech-badge">TanStack Query 5.25</span>
+                    <span class="tech-badge">shadcn/ui</span>
+                </div>
+
+                <h3>DevOps & Deployment</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Docker Compose</span>
+                    <span class="tech-badge">GitHub Actions</span>
+                    <span class="tech-badge">CI/CD Pipeline</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: white;">
+        <div class="container">
+            <h2>Key Capabilities</h2>
+            <div class="feature-grid" style="margin-top: 2rem;">
+                <div class="feature-card">
+                    <h4>🎯 Realistic Data Generation</h4>
+                    <p>Generate 3,100+ synthetic student profiles with realistic Indian demographics, financial data, and edge cases using GenAI.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚖️ Fairness Validation</h4>
+                    <p>Compare fair vs. biased scoring to expose discrimination patterns and quantify bias across multiple dimensions.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Statistical Analysis</h4>
+                    <p>Calculate bias metrics with statistical validation including t-tests, p-values, and confidence intervals.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔄 Iterative Improvement</h4>
+                    <p>Agentic loop that learns from human feedback and automatically refines prompts to improve fairness.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>👥 Human Expertise</h4>
+                    <p>Integrate domain expert knowledge through feedback forms and annotations for validation and refinement.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 Real-time Monitoring</h4>
+                    <p>Dashboard with live updates, WebSocket support, and comprehensive visualization of bias metrics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 1rem;">Fair Lending AI Validation Workbench</h3>
+            <p>GenAI-Powered Human-in-the-Loop Testing for Bias Detection & Mitigation</p>
+            <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.7;">
+                Built for Deloitte Capstone Project
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+
